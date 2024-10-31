@@ -1,0 +1,49 @@
+{% extends 'base.html'%} 
+
+{% block head %}
+<title>レースの追加</title>
+{% endblock %}
+
+
+{% block body %}
+<h1> レースを追加する </h1>
+
+<form action="/add_race" method="POST" name="add_race" id ="add_race">
+    <div>
+        <label for="name" class="label">大会名</label>
+        <input class="input" id="name" name="name" type="text" required>
+    </div>
+    <div>
+        <label for="date" class="label">日付</label>
+        <input class="input" id="date" name="date" type="date">
+    </div>
+    <div>
+        <label for="prefecture" class="label">都道府県</label>
+        <input class="input" id="prefecture" name="prefecture" type="text">
+    </div>
+    <div>
+        <label for="city" class="label">市町村</label>
+        <input class="input" id="city" name="city" type="text">
+    </div>
+    <div>
+        <label for="distance" class="label">距離</label>
+        <input class="input" id="distance" name="distance" type="number">
+        <label> km </label>
+    </div>
+    <div>   
+        <label for="gain" class="label">累積標高</label>
+        <input class="input" id="gain" name="gain" type="number">
+        <label> m </label>
+    </div>
+    <div>
+        <label for="url" class="label">URL</label>
+        <input class="input" id="url" name="url" type="text">
+    </div>
+
+    <button type="submit" class="button is-info">登録</button>
+</form>
+
+<a href="/">トップページ</a><br>
+<a href="/search">レースを検索する</a>
+
+{% endblock %}

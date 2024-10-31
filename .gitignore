@@ -1,0 +1,4 @@
+.DS_Store
+instance/
+test.*
+app/__pycache__/

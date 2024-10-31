@@ -1,0 +1,40 @@
+{% extends 'base.html'%} 
+
+{% block head %}
+<title>トップページ</title>
+{% endblock %}
+
+
+{% block body %}
+<h1> レース一覧 </h1>
+
+<table class="table" border="1">
+    <tr>
+        <th>大会名</th>
+        <th>日付</th>
+        <th>曜日</th>
+        <th>都道府県</th>
+        <th>市町村</th>
+        <th>距離[km]</th>
+        <th>累積標高[m]</th>
+        <th>URL</th>
+    </tr>
+    {% for race in races %}
+    <tr>
+        <td>{{ race.name }}</td>
+        <td>{{ race.date }}</td>
+        <td>{{ race.week }}</td>
+        <td>{{ race.prefecture }}</td>
+        <td>{{ race.city }}</td>
+        <td>{{ race.distance }}</td>
+        <td>{{ race.gain }}</td>
+        <td><a href="{{ race.url }}">{{ race.url }}</a></td>
+    </tr>
+    {% endfor %}
+    
+</table>
+
+<a href="/add_race">レースを追加する</a><br>
+<a href="/search">レースを検索する</a>
+
+{% endblock %}

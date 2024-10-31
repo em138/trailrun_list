@@ -1,0 +1,102 @@
+{% block head %}
+<title>レース検索</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <h1>レース検索</h1>
+    <div class="filter-container">
+    <h2> フィルタ条件 </h2>
+    <!-- 検索フォーム -->
+    <form action="/search_filter" method="POST">
+        <label for="name">大会名:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="week">曜日:</label>
+        <select id="week" name="week">
+            <option value="">選択してください</option>
+            <option value="月">月曜日</option>
+            <option value="火">火曜日</option>
+            <option value="水">水曜日</option>
+            <option value="木">木曜日</option>
+            <option value="金">金曜日</option>
+            <option value="土">土曜日</option>
+            <option value="日">日曜日</option>
+        </select><br><br>
+        
+        <label for="prefecture">都道府県:</label>
+        <input type="text" id="prefecture" name="prefecture"><br><br>
+
+        <label for="distance">距離:</label>
+        <input type="number" id="min_distance" name="min_distance"> km以上
+        <input type="number" id="max_distance" name="max_distance"> km以下<br><br>
+
+        <label for="gain">累積標高:</label>
+        <input type="number" id="min_gain" name="min_gain"> m以上
+        <input type="number" id="max_gain" name="max_gain"> m以下<br><br>
+
+        
+        <button type="submit">検索</button>
+    </form>
+    </div>
+
+    <div class="sort-container">
+    <h2> ソート条件 </h2>
+    <!-- ソートフォーム -->
+    <form action="/search_sort" method="POST">
+        <label for="sort">ソート:</label>
+        <select id="sort_category" name="category">
+            <option value="date">日付</option>
+            <option value="distance">距離</option>
+            <option value="gain">累積標高</option>
+        </select>
+        <select id="sort_order" name="order">
+            <option value="asc">昇順</option>
+            <option value="desc">降順</option>
+        </select>
+        <button type="submit">ソート</button>
+    </div>
+
+    <h2>検索結果</h2>
+    <label> フィルタ </label>
+    <p>
+        {% if name %}大会名: {{ name }}<br>{% endif %}
+        {% if week is not none %}{{ week }}<br>{% endif %}
+        {% if prefecture is not none %} {{ prefecture }}<br>{% endif %}
+        {% if min_distance is not none %} {{ min_distance }}{% endif %}
+        {% if max_distance is not none %} {{ max_distance }}<br>{% endif %}
+        {% if min_gain is not none %} {{ min_gain }}{% endif %}
+        {% if max_gain is not none %} {{ max_gain }}<br>{% endif %}        
+    </p>
+
+    <table class="table" border="1">
+        <tr>
+            <th>大会名</th>
+            <th>日付</th>
+            <th>曜日</th>
+            <th>都道府県</th>
+            <th>市町村</th>
+            <th>距離[km]</th>
+            <th>累積標高[m]</th>
+            <th>URL</th>
+        </tr>
+        {% for race in races %}
+        <tr>
+            <td>{{ race.name }}</td>
+            <td>{{ race.date }}</td>
+            <td>{{ race.week }}</td>
+            <td>{{ race.prefecture }}</td>
+            <td>{{ race.city }}</td>
+            <td>{{ race.distance }}</td>
+            <td>{{ race.gain }}</td>
+            <td><a href="{{ race.url }}">{{ race.url }}</a></td>
+        </tr>
+        {% else %}
+            <p>該当する大会が見つかりませんでした。</p>
+        {% endfor %}
+    </table>
+
+    <a href="/">トップページ</a>
+
+{% endblock %}
