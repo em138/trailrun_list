@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from databases import db, raceInfo
 from datetime import datetime
 
-# trail runの一覧を表示するアプリ
+# trail run大会の一覧を表示するアプリ
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -29,9 +29,6 @@ def delete_race(id):
             db.session.commit()
             print(f"{id} has been deleted.")
         
-
-
-
 def get_weekday(date_str):
     # 文字列を日付に変換
     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
@@ -136,12 +133,20 @@ def search_sort():
             query = query.order_by(raceInfo.gain.desc())
     return render_template("search.html",races=query.all())
 
+# error handling
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("errors/404.html"), 404
 
-        
-    
-    
-        
-    
+
+@app.errorhandler(400)
+def bad_request(error):
+    return render_template("errors/400.html"), 400
+
+@app.errorhandler(Exception)
+def internal_server_error(error):
+    return render_template("errors/500.html"), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8111)

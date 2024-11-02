@@ -1,7 +1,7 @@
 # csvからデータを自動入力
 
 import csv
-from app import add_race,get_weekday,app,delete_race
+from main import add_race,get_weekday,app,delete_race
 
 def import_csv(filename):
     # csvファイルを読み込む
