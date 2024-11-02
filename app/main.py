@@ -31,7 +31,11 @@ def delete_race(id):
         
 def get_weekday(date_str):
     # 文字列を日付に変換
-    date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+    print(date_str)
+    try:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+    except ValueError:
+        return ""
     # 曜日を取得（0=月曜日, 6=日曜日）
     weekday_number = date_obj.weekday()
     # 曜日名リスト
