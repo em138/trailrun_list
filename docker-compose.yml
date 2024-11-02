@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+    app:
+        build: ./
+        image: trail_app
+        ports:
+            - "8111:8111"
+        volumes:
+            - ./app:/app
